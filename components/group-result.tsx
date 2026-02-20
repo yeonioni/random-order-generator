@@ -40,26 +40,29 @@ export function GroupResult({ groups, isShuffling }: GroupResultProps) {
       return
     }
 
-    // 릴 스핀 사운드 시작
+    // 릴 스핀 사운드 시작 - 깔끔한 전자음 버전
     audioContextRef.current = new AudioContext()
-    oscillatorRef.current = audioContextRef.current.createOscillator()
-    gainNodeRef.current = audioContextRef.current.createGain()
-
+    const context = audioContextRef.current
+    
+    // 메인 톤
+    oscillatorRef.current = context.createOscillator()
+    gainNodeRef.current = context.createGain()
+    
     oscillatorRef.current.connect(gainNodeRef.current)
-    gainNodeRef.current.connect(audioContextRef.current.destination)
-
-    oscillatorRef.current.type = 'square'
-    oscillatorRef.current.frequency.value = 50
-    gainNodeRef.current.gain.value = 0.1
-
+    gainNodeRef.current.connect(context.destination)
+    
+    oscillatorRef.current.type = 'sine'
+    oscillatorRef.current.frequency.value = 300
+    gainNodeRef.current.gain.value = 0.15
+    
     oscillatorRef.current.start()
-
-    // 주파수를 계속 변경하여 "드르르르" 효과
-    let baseFreq = 50
+    
+    // 주파수를 빠르게 변경 - 릴 스핀 효과
+    let baseFreq = 300
     const freqInterval = setInterval(() => {
       if (oscillatorRef.current) {
-        baseFreq = 50 + Math.random() * 100
-        oscillatorRef.current.frequency.value = baseFreq
+        baseFreq = 200 + Math.random() * 300
+        oscillatorRef.current.frequency.setValueAtTime(baseFreq, context.currentTime)
       }
     }, 50)
 
