@@ -235,10 +235,10 @@ export default function Page() {
             <Shuffle className="h-7 w-7 text-primary-foreground" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-foreground text-balance">
-            {"순서 뽑기"}
+            {"제1회 Hanyang AI-dea Challenge"}
           </h1>
           <p className="mt-2 text-muted-foreground">
-            {"이름을 입력하고 랜덤으로 순서를 정하거나 조를 나눠보세요"}
+            {"발표 순서 뽑기"}
           </p>
         </header>
 
